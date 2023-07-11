@@ -2,7 +2,7 @@ using System.Text;
 using PdfApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
-// Register the CodePagesEncodingProvider
+
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 // Add services to the container.

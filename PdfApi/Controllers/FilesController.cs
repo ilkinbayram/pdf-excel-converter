@@ -22,14 +22,12 @@ public class FilesController : ControllerBase
             return BadRequest("No file is uploaded");
         }
 
-        // Dosya byte array'a çevrilir
         using var memoryStream = new MemoryStream();
         await file.CopyToAsync(memoryStream);
         byte[] fileBytes = memoryStream.ToArray();
 
         string fileNameParam = Path.GetFileNameWithoutExtension(file.FileName);
 
-        // PDF dosyasını Excel'e çevir
         var result = _fileHandlerService.ExtractTablesFromPdfToExcel(fileBytes, fileNameParam);
 
         if (result)
