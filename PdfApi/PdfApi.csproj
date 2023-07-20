@@ -9,7 +9,11 @@
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="9.0.0" />
     <PackageReference Include="Aspose.PDF" Version="9.0.0" />
+    <PackageReference Include="Bytescout.PDFExtractor" Version="13.4.1.4787" />
+    <PackageReference Include="ClosedXML" Version="0.70.0" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0-beta0002" />
+    <PackageReference Include="EPPlus" Version="7.0.0-preview1" />
+    <PackageReference Include="sautinsoft.pdffocus" Version="2023.5.10" />
     <PackageReference Include="Spire.Office" Version="8.7.0" />
     <PackageReference Include="Spire.PDF" Version="9.7.0" />
     <PackageReference Include="Spire.XLS" Version="9.7.0" />

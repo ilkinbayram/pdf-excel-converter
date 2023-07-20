@@ -7,7 +7,7 @@ using doxmlspr = DocumentFormat.OpenXml.Spreadsheet;
 
 namespace PdfApi.Service;
 
-public class SpireFileHandlerService : IFileHandlerService
+public class CapitalBankAvrasiyaFileHandlerService : IFileHandlerService
 {
     public bool ExtractTablesFromPdfToExcel(byte[] fileBytes, string fileNameParam)
     {
@@ -26,12 +26,13 @@ public class SpireFileHandlerService : IFileHandlerService
 
                 if (pdfTables != null && pdfTables.Length > 0)
                 {
+                    // Create Workbook outside of the loop
+                    Workbook wb = new Workbook();
+                    
+                    wb.Worksheets.Clear();
+
                     for (int tableNum = 0; tableNum < pdfTables.Length; tableNum++)
                     {
-                        Workbook wb = new Workbook();
-                        
-                        wb.Worksheets.Clear();
-
                         String sheetName = String.Format("Table - {0}", tableNum + 1);
                         Worksheet sheet = wb.Worksheets.Add(sheetName);
                         
@@ -46,17 +47,18 @@ public class SpireFileHandlerService : IFileHandlerService
                         }
 
                         sheet.AllocatedRange.AutoFitColumns();
-
-                        string fileName = String.Format("{0}-ExportedExcel-{1}.xlsx", fileNameParam, tableNum + 1);
-                        if (!Directory.Exists("C:\\ExcelDosyalar"))
-                        {
-                            Directory.CreateDirectory("C:\\ExcelDosyalar");
-                        }
-                        string filePath = Path.Combine("C:\\ExcelDosyalar", fileName);
-                        wb.SaveToFile(filePath, ExcelVersion.Version2016);
-                        
-                        RemoveLastSheet(filePath);
                     }
+
+                    // Save the file after all tables have been added to it
+                    string fileName = String.Format("{0}-ExportedExcel.xlsx", fileNameParam);
+                    if (!Directory.Exists("C:\\ExcelDosyalar"))
+                    {
+                        Directory.CreateDirectory("C:\\ExcelDosyalar");
+                    }
+                    string filePath = Path.Combine("C:\\ExcelDosyalar", fileName);
+                    wb.SaveToFile(filePath, ExcelVersion.Version2016);
+                    
+                    RemoveLastSheet(filePath);
                 }
 
                 return true;

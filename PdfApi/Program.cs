@@ -11,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IFileHandlerService, SpireFileHandlerService>();
+// builder.Services.AddScoped<IFileHandlerService, SpireFileHandlerService>();
+// builder.Services.AddScoped<IFileHandlerService, VtbFileHandler>();
+builder.Services.AddScoped<IFileHandlerService, ByteScoutFileHandler>();
 
 var app = builder.Build();
 
